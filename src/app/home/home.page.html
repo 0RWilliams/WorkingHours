@@ -1,0 +1,39 @@
+<ion-content>
+    <ion-col>
+    <ion-menu-button></ion-menu-button>
+    </ion-col>
+    <ion-col>
+        <div class="ion-padding ion-text-center">
+            <h2>Working Hours</h2>
+            Time: {{currentDate | date:'EEEE dd/mm/yyyy HH:mm:ss'}}
+        </div>
+    </ion-col>
+    <div class="ion-padding">
+        <h5>Latest 5 recorded days</h5>
+    </div>
+    <div *ngFor="let data of testData">
+        <ion-card>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-card-header>
+                            {{data.title}}
+                        </ion-card-header>
+                        <ion-card-content>
+                            {{data.value}}
+                        </ion-card-content>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-content>
+                            <ion-item><ion-icon name="create"></ion-icon><p class="ion-padding">Edit</p></ion-item>
+                            <ion-item><ion-ripple-effect></ion-ripple-effect><ion-icon name="information-circle"></ion-icon><p class="ion-padding">Details</p></ion-item>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+    </div>
+    <ion-footer class="ion-padding ion-text-center">
+        Made By Ryan Williams
+    </ion-footer>
+</ion-content>
