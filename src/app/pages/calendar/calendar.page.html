@@ -6,5 +6,9 @@
 
 <ion-content>
     <mwl-calendar-month-view-header></mwl-calendar-month-view-header>
-    <mwl-calendar-month-view [viewDate]="viewDate" [events]="null"></mwl-calendar-month-view>
+    <mwl-calendar-month-view
+        (dayClicked)="dayClicked($event.day)"
+        [viewDate]="viewDate"
+        [events]="null">
+    </mwl-calendar-month-view>
 </ion-content>

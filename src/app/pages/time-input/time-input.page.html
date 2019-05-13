@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Time Entry for {{myDate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form>
+        <ion-item>
+            <ion-label>Were you on leave this day?</ion-label>
+            <ion-segment (ionChange)="onLeaveSegment($event.detail.value)">
+                <ion-segment-button value="yes">
+                    <ion-label>Yes</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="no">
+                    <ion-label>No</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-item>
+
+        <div *ngIf="onLeaveValue === 'no'">
+            <ion-item>
+                <ion-label>Task</ion-label>
+                <ion-select placeholder="Select One" (ionChange)="taskDropdown($event.detail.value)">
+                    <ion-select-option value="mc">MC</ion-select-option>
+                    <ion-select-option value="search">Search</ion-select-option>
+                    <ion-select-option value="designAssurance">Design Assurance</ion-select-option>
+                    <ion-select-option value="otherProductive">Other Productive</ion-select-option>
+                    <ion-select-option value="support">Support</ion-select-option>
+                    <ion-select-option value="professionalDevelopment">Professional Development</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Overtime</ion-label>
+                <ion-segment (ionChange)="overtimeSegment($event.detail.value)">
+                    <ion-segment-button value="yes">
+                        <ion-label>Yes</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="no">
+                        <ion-label>No</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Date</ion-label>
+                <ion-input type="date"></ion-input>
+            </ion-item>
+        </div>
+    </form>
+</ion-content>
+
+<ion-footer>
+    <ion-row>
+        <ion-col text-center>
+            <ion-button (click)="closeModal()">
+                Cancel
+            </ion-button>
+            <ion-button (click)="submitEntry()">
+                Submit
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

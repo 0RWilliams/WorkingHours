@@ -10,7 +10,7 @@ export class UserDataService {
 
     getUser() {
         return {
-            "name": "Ryan"
-        }
+            'name': 'Ryan'
+        };
     }
 }
