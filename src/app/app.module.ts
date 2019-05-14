@@ -4,6 +4,7 @@ import {RouteReuseStrategy} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
@@ -24,6 +25,8 @@ import {TimeInputPage} from './pages/time-input/time-input.page';
         IonicModule.forRoot(),
         AppRoutingModule,
         BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory

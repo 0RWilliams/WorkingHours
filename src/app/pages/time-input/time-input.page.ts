@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {SubmitEntry} from '../../models/submit-entry.interface';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-time-input',
@@ -9,39 +9,62 @@ import {SubmitEntry} from '../../models/submit-entry.interface';
 })
 export class TimeInputPage implements OnInit {
 
-    currentDate: Date;
-    onLeaveValue: string;
-    overtimeValue: string;
-    taskValue: string;
+    validateLeave: FormGroup;
+    validateHours: FormGroup;
+    currentDate: string;
 
     constructor(private modalCtrl: ModalController) {
+        // empty;
     }
 
     ngOnInit() {
-        console.log(`${this.currentDate}`);
+        this.validateLeave = new FormGroup({
+            onLeave: new FormControl({value: null, disabled: false}, Validators.required)
+        });
+
+        this.validateHours = new FormGroup({
+            task: new FormControl({value: null, disabled: true}, Validators.required),
+            overtime: new FormControl({value: null, disabled: true}, Validators.required),
+            timeSpent: new FormControl({value: 0, disabled: true}, Validators.compose([Validators.required,
+                Validators.pattern('\d{2}:\d{2}')])),
+            entryDate: new FormControl({
+                value: this.parseLocaleDateStringToJSDate(this.currentDate),
+                disabled: true
+            }, Validators.required)
+        });
+
+        this.onChanges();
     }
 
-    onLeaveSegment(value: string): void {
-        this.onLeaveValue = value;
+
+    onChanges(): void {
+        this.validateLeave.valueChanges.subscribe(value => {
+            if ((value['onLeave'] === 'no')) {
+                this.validateHours.enable();
+            } else {
+                this.validateHours.disable();
+            }
+        });
+
+        this.validateHours.valueChanges.subscribe(value => {
+
+        });
     }
 
-    overtimeSegment(value: string): void {
-        this.overtimeValue = value;
+    submitEntry(validation: FormGroup): void {
+        console.log(validation.value);
+        if (validation.valid) {
+            this.closeModal();
+        }
+
     }
 
-    taskDropdown(value: string): void {
-        this.taskValue = value;
-    }
 
-    submitEntry(): SubmitEntry {
-        return {
-            onLeave: this.onLeaveValue,
-            overtime: this.overtimeValue,
-            task: this.taskValue
-        };
+    parseLocaleDateStringToJSDate(dateString: string, timeString?: string): string {
+        return dateString.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1');
     }
 
     closeModal(): void {
-        this.modalCtrl.dismiss();
+        this.modalCtrl.dismiss().finally();
     }
 }
