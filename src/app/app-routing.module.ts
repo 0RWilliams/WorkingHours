@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
+import {AuthGuardService} from './providers/auth-guard/auth-guard.service';
+
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
-    {path: 'calendar', loadChildren: './pages/calendar/calendar.module#CalendarPageModule'},
+    {path: 'calendar', loadChildren: './pages/calendar/calendar.module#CalendarPageModule', canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

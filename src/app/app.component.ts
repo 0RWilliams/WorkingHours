@@ -24,6 +24,9 @@ export class AppComponent {
         this.user = userData.getUser();
     }
 
+    /**
+     *
+     */
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();

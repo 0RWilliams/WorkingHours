@@ -12,6 +12,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {TimeInputPage} from './pages/time-input/time-input.page';
+import {AuthGuardService} from './providers/auth-guard/auth-guard.service';
 
 @NgModule({
     declarations: [
@@ -24,18 +25,13 @@ import {TimeInputPage} from './pages/time-input/time-input.page';
         IonicModule.forRoot(),
         AppRoutingModule,
         BrowserAnimationsModule,
-        CalendarModule.forRoot({
-            provide: DateAdapter,
-            useFactory: adapterFactory
-        })
+        CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory})
     ],
     providers: [
         StatusBar,
         SplashScreen,
-        {
-            provide: RouteReuseStrategy,
-            useClass: IonicRouteStrategy
-        }
+        AuthGuardService,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]
 })
