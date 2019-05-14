@@ -30,23 +30,33 @@ export class CalendarPage implements OnInit {
         this.user = userData.getUser();
     }
 
+
     ngOnInit() {
     }
 
     /**
      *
+     * @param {string} dateVal
      * @return {Promise<void>}
      */
-    async presentModal(dateVal: string) {
+    async presentModal(dateVal: string): Promise<void> {
         const modal = await this.modalController.create({
             component: TimeInputPage,
-            componentProps: {myDate: dateVal},
+            componentProps: {
+                currentDate: dateVal
+            },
             backdropDismiss: false
         });
         return await modal.present();
     }
 
-    async dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+    /**
+     *
+     * @param {Date} date
+     * @param {CalendarEvent[]} events
+     * @return {Promise<void>}
+     */
+    async dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): Promise<void> {
         const localeDate: string = new Date(date).toLocaleDateString();
 
         await this.presentModal(localeDate);

@@ -8,7 +8,6 @@ import {Component} from '@angular/core';
 export class HomePage {
 
     constructor() {
-
         setInterval(() => {
             this.currentDate = new Date().toLocaleDateString();
         }, 1);
@@ -35,5 +34,6 @@ export class HomePage {
         {
             'title': 'Thursday 23rd May 2019',
             'value': '12:33pm'
-        }];
+        }
+    ];
 }
