@@ -9,8 +9,6 @@ export class UserDataService {
     }
 
     getUser() {
-        return {
-            'name': 'Ryan'
-        };
+        return { name: 'Ryan' };
     }
 }

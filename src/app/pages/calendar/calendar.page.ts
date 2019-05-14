@@ -42,9 +42,7 @@ export class CalendarPage implements OnInit {
     async presentModal(dateVal: string): Promise<void> {
         const modal = await this.modalController.create({
             component: TimeInputPage,
-            componentProps: {
-                currentDate: dateVal
-            },
+            componentProps: {currentDate: dateVal},
             backdropDismiss: false
         });
         return await modal.present();

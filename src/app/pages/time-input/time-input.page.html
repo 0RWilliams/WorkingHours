@@ -9,7 +9,7 @@
     <form>
         <ion-item>
             <ion-label>Were you on leave this day?</ion-label>
-            <ion-segment (ionChange)="onLeaveSegment($event.detail.value)">
+            <ion-segment (ionChange)="setLeaveSegment($event.detail.value)">
                 <ion-segment-button value="yes">
                     <ion-label>Yes</ion-label>
                 </ion-segment-button>
@@ -22,7 +22,7 @@
         <div *ngIf="onLeaveValue === 'no'">
             <ion-item>
                 <ion-label>Task</ion-label>
-                <ion-select placeholder="Select One" (ionChange)="taskDropdown($event.detail.value)">
+                <ion-select placeholder="Select One" (ionChange)="setTaskDropdown($event.detail.value)">
                     <ion-select-option value="mc">MC</ion-select-option>
                     <ion-select-option value="search">Search</ion-select-option>
                     <ion-select-option value="designAssurance">Design Assurance</ion-select-option>
@@ -34,7 +34,7 @@
 
             <ion-item>
                 <ion-label>Overtime</ion-label>
-                <ion-segment (ionChange)="overtimeSegment($event.detail.value)">
+                <ion-segment (ionChange)="setOvertimeSegment($event.detail.value)">
                     <ion-segment-button value="yes">
                         <ion-label>Yes</ion-label>
                     </ion-segment-button>

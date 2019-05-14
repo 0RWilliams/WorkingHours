@@ -21,18 +21,34 @@ export class TimeInputPage implements OnInit {
         console.log(`${this.currentDate}`);
     }
 
-    onLeaveSegment(value: string): void {
+    /**
+     *
+     * @param {string} value
+     */
+    setLeaveSegment(value: string): void {
         this.onLeaveValue = value;
     }
 
-    overtimeSegment(value: string): void {
+    /**
+     *
+     * @param {string} value
+     */
+    setOvertimeSegment(value: string): void {
         this.overtimeValue = value;
     }
 
-    taskDropdown(value: string): void {
+    /**
+     *
+     * @param {string} value
+     */
+    setTaskDropdown(value: string): void {
         this.taskValue = value;
     }
 
+    /**
+     *
+     * @return {SubmitEntry}
+     */
     submitEntry(): SubmitEntry {
         return {
             onLeave: this.onLeaveValue,
@@ -41,6 +57,9 @@ export class TimeInputPage implements OnInit {
         };
     }
 
+    /**
+     *
+     */
     closeModal(): void {
         this.modalCtrl.dismiss();
     }
