@@ -1,3 +1,20 @@
 ion-segment {
   width: 50%;
 }
+
+.item-inner {
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.hideMeridian::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+input[type=time]::-webkit-clear-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance:none;
+  appearance: none;
+  margin: -10px;
+}

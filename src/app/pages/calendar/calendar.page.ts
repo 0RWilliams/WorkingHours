@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {CalendarEvent} from 'angular-calendar';
+import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {isSameDay, isSameMonth} from 'date-fns';
 
 import {UserDataService} from '../../providers/user-data/user-data.service';
@@ -15,12 +14,13 @@ import {TimeInputPage} from '../time-input/time-input.page';
 export class CalendarPage implements OnInit {
 
     private user;
-    activeDayIsOpen: boolean = true;
-    viewDate: Date = new Date();
-    view: string = 'week';
-    loacale: string = 'gb';
-    isDragging: boolean = false;
-    refresh: Subject<any> = new Subject();
+    private activeDayIsOpen: boolean = true;
+    public viewDate: Date = new Date();
+    public excludeDays: number[] = [0, 6];
+    public view: CalendarView = CalendarView.Month;
+    private monthNames: Array<string> = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
 
     constructor(
         private userData: UserDataService,
@@ -32,6 +32,14 @@ export class CalendarPage implements OnInit {
 
 
     ngOnInit() {
+    }
+
+    /**
+     *
+     * @return {string}
+     */
+    private getMonthYear(): string {
+        return this.monthNames[this.viewDate.getMonth()] + ' ' + this.viewDate.getFullYear();
     }
 
     /**
@@ -65,6 +73,10 @@ export class CalendarPage implements OnInit {
             this.viewDate = date;
             this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0);
         }
+    }
+
+    closeOpenMonthViewDay() {
+        this.activeDayIsOpen = false;
     }
 
 }

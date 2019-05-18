@@ -5,10 +5,50 @@
 </ion-header>
 
 <ion-content>
-    <mwl-calendar-month-view-header></mwl-calendar-month-view-header>
+
+    <ion-row>
+        <ion-col>
+            <ion-buttons margin>
+                <ion-button
+                    color="medium"
+                    fill="solid"
+                    mwlCalendarPreviousView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()">
+                    Previous
+                </ion-button>
+
+                <ion-button
+                    color="primary"
+                    fill="solid"
+                    mwlCalendarToday
+                    [(viewDate)]="viewDate">
+                    Today
+                </ion-button>
+
+                <ion-button
+                    color="medium"
+                    fill="solid"
+                    mwlCalendarNextView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="closeOpenMonthViewDay()">
+                    Next
+                </ion-button>
+            </ion-buttons>
+        </ion-col>
+
+        <ion-col>
+            <h4 float-end margin-end>{{this.getMonthYear()}}</h4>
+        </ion-col>
+    </ion-row>
+
+
     <mwl-calendar-month-view
         (dayClicked)="dayClicked($event.day)"
         [viewDate]="viewDate"
+        [excludeDays]="excludeDays"
         [events]="null">
     </mwl-calendar-month-view>
 </ion-content>

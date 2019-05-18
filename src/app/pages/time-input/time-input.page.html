@@ -5,10 +5,35 @@
 </ion-header>
 
 <ion-content>
-    <form [formGroup]="validateLeave">
+
+    <form [formGroup]="workingTime">
         <ion-item>
             <ion-label>Were you on leave this day?</ion-label>
-            <ion-segment [formControl]="validateLeave.controls['onLeave']">
+            <ion-segment [formControl]="workingTime.controls['onLeave']">
+                <ion-segment-button [value]="true">
+                    <ion-label>Yes</ion-label>
+                </ion-segment-button>
+                <ion-segment-button [value]="false">
+                    <ion-label>No</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Task</ion-label>
+            <ion-select placeholder="Select One" [formControl]="workingTime.controls['task']">
+                <ion-select-option value="mc">MC</ion-select-option>
+                <ion-select-option value="search">Search</ion-select-option>
+                <ion-select-option value="designAssurance">Design Assurance</ion-select-option>
+                <ion-select-option value="otherProductive">Other Productive</ion-select-option>
+                <ion-select-option value="support">Support</ion-select-option>
+                <ion-select-option value="professionalDevelopment">Professional Development</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Overtime</ion-label>
+            <ion-segment [formControl]="workingTime.controls['overtime']">
                 <ion-segment-button value="yes">
                     <ion-label>Yes</ion-label>
                 </ion-segment-button>
@@ -19,44 +44,24 @@
         </ion-item>
     </form>
 
-    <form [formGroup]="validateHours">
-        <div>
-            <ion-item>
-                <ion-label>Task</ion-label>
-                <ion-select placeholder="Select One" [formControl]="validateHours.controls['task']">
-                    <ion-select-option value="mc">MC</ion-select-option>
-                    <ion-select-option value="search">Search</ion-select-option>
-                    <ion-select-option value="designAssurance">Design Assurance</ion-select-option>
-                    <ion-select-option value="otherProductive">Other Productive</ion-select-option>
-                    <ion-select-option value="support">Support</ion-select-option>
-                    <ion-select-option value="professionalDevelopment">Professional Development</ion-select-option>
-                </ion-select>
-            </ion-item>
+    <ion-item>
+        <ion-label>Time Spent</ion-label>
+        <input type="time" id="timeSpent"
+                   [(ngModel)]="timeSpent"
+                   class="hideMeridian"
+                   pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+                   placeholder="Time Value"/>
+    </ion-item>
 
-            <ion-item>
-                <ion-label>Overtime</ion-label>
-                <ion-segment [formControl]="validateHours.controls['overtime']">
-                    <ion-segment-button value="yes">
-                        <ion-label>Yes</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="no">
-                        <ion-label>No</ion-label>
-                    </ion-segment-button>
-                </ion-segment>
-            </ion-item>
+    {{'asdadasd ' + timeSpent}}
 
-            <ion-item>
-                <ion-label>Time Spent:</ion-label>
-                <ion-input type="text" inputmode="numeric"
-                           [formControl]="validateHours.controls['timeSpent']"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Date</ion-label>
-                <ion-input type="date" [formControl]="validateHours.controls['entryDate']"></ion-input>
-            </ion-item>
-        </div>
+    <form [formGroup]="workingTime">
+        <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-input type="date" [formControl]="workingTime.controls['entryDate']"></ion-input>
+        </ion-item>
     </form>
+
 </ion-content>
 
 <ion-footer>
@@ -65,7 +70,7 @@
             <ion-button (click)="closeModal()">
                 Cancel
             </ion-button>
-            <ion-button (click)="submitEntry(validateHours)">
+            <ion-button [disabled]="workingTime?.invalid" (click)="submitEntry(workingTime.getRawValue())">
                 Submit
             </ion-button>
         </ion-col>
