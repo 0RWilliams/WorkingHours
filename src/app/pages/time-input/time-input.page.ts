@@ -5,6 +5,7 @@ import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
 
 import {ModalController} from '@ionic/angular';
 import {CallStack} from '../../models/call-stack.interface';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'app-time-input',
@@ -12,8 +13,9 @@ import {CallStack} from '../../models/call-stack.interface';
     styleUrls: ['./time-input.page.scss'],
 })
 export class TimeInputPage implements OnInit, OnDestroy {
+    private bankholidays;
 
-    constructor(private modalCtrl: ModalController) {
+    constructor(private modalCtrl: ModalController, private http: HttpClient) {
         // empty;
     }
 
@@ -52,6 +54,14 @@ export class TimeInputPage implements OnInit, OnDestroy {
         this.onChanges();
     }
 
+    getBankHolidays(): void {
+        this.http.get('https://www.gov.uk/bank-holidays.json').subscribe((response) => {
+            this.bankholidays = response;
+
+        });
+        console.log(this.bankholidays);
+    }
+
     /**
      * Function to unsubscribe from the active subscriptions when the component is destroyed.
      * @return {void}
@@ -69,8 +79,8 @@ export class TimeInputPage implements OnInit, OnDestroy {
         this.workingTime.valueChanges.pipe(takeUntil(this.destroy$), distinctUntilChanged())
             .subscribe(value => {
                 console.log(value);
-                
                 console.log(this.timeSpent);
+                this.getBankHolidays();
                 // if (value['onLeave'] === 'false') {
                 //     this.workingTime.enable(TimeInputPage.callStackHandler());
                 // } else {
