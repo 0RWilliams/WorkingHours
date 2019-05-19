@@ -16,7 +16,7 @@
                     [view]="view"
                     [(viewDate)]="viewDate"
                     (viewDateChange)="closeOpenMonthViewDay()">
-                    Previous
+                    {{this.getPreviousMonth()}}
                 </ion-button>
 
                 <ion-button
@@ -24,7 +24,7 @@
                     fill="solid"
                     mwlCalendarToday
                     [(viewDate)]="viewDate">
-                    Today
+                    {{this.getCurrentMonth()}}
                 </ion-button>
 
                 <ion-button
@@ -34,7 +34,7 @@
                     [view]="view"
                     [(viewDate)]="viewDate"
                     (viewDateChange)="closeOpenMonthViewDay()">
-                    Next
+                    {{this.getNextMonth()}}
                 </ion-button>
             </ion-buttons>
         </ion-col>

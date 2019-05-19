@@ -42,6 +42,18 @@ export class CalendarPage implements OnInit {
         return this.monthNames[this.viewDate.getMonth()] + ' ' + this.viewDate.getFullYear();
     }
 
+    private getCurrentMonth(): string {
+        return this.monthNames[this.viewDate.getMonth()];
+    }
+
+    private getPreviousMonth(): string {
+        return this.monthNames[this.viewDate.getMonth() - 1];
+    }
+
+    private getNextMonth(): string {
+        return this.monthNames[this.viewDate.getMonth() + 1];
+    }
+
     /**
      *
      * @param {string} dateVal
