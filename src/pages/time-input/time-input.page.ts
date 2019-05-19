@@ -7,6 +7,7 @@ import {ModalController} from '@ionic/angular';
 
 import {CallStack} from '../../models/call-stack.interface';
 import {BankHolidaysService} from '../../providers/bank-holidays/bank-holidays.service';
+import {BankHolidays} from '../../models/bank-holidays.interface';
 
 @Component({
     selector: 'app-time-input',
@@ -26,6 +27,7 @@ export class TimeInputPage implements OnInit, OnDestroy {
     workingTime: FormGroup;
     currentDate: string;
     timeSpent: string;
+    bankHolidayData: BankHolidays;
 
     /**
      *
@@ -120,13 +122,16 @@ export class TimeInputPage implements OnInit, OnDestroy {
      *
      */
     getBankHolidays() {
-        this.bankHolidayService.getBankHolidays()
+        this.bankHolidayService.getBankHolidays().pipe(takeUntil(this.destroy$))
             .subscribe(result => {
                 if (result) {
                     console.log(result);
+                    this.bankHolidayData = result;
+                } else {
+                    this.bankHolidayData = null;
                 }
-            }, err => {
-                console.warn(err);
+            }, error => {
+                console.warn(error);
             });
     }
 }

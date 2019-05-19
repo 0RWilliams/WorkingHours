@@ -16,6 +16,6 @@ export class BankHolidaysService {
      * @return {Observable<BankHolidays>}
      */
     getBankHolidays(): Observable<BankHolidays> {
-        return this.http.get<BankHolidays>('assets/bank-holidays.json');
+        return this.http.get<BankHolidays>('https://www.gov.uk/bank-holidays.json');
     }
 }
