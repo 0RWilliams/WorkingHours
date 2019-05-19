@@ -8,6 +8,7 @@ pipeline {
     }
     stage('Ionic Build') {
       steps {
+        sh 'npm install'
         sh 'ionic build'
       }
     }
