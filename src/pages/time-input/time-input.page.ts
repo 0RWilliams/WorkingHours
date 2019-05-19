@@ -19,8 +19,6 @@ export class TimeInputPage implements OnInit, OnDestroy {
     constructor(private modalCtrl: ModalController,
                 private bankHolidayService: BankHolidaysService) {
         // empty;
-
-        this.getData();
     }
 
     private destroy$ = new Subject<boolean>();
@@ -42,6 +40,8 @@ export class TimeInputPage implements OnInit, OnDestroy {
      * @return {void}
      */
     ngOnInit(): void {
+        this.getBankHolidays();
+
         this.workingTime = new FormGroup({
             onLeave: new FormControl({value: null, disabled: false}, Validators.required),
             task: new FormControl({value: null, disabled: false}, Validators.required),
@@ -75,7 +75,7 @@ export class TimeInputPage implements OnInit, OnDestroy {
         this.workingTime.valueChanges.pipe(takeUntil(this.destroy$), distinctUntilChanged())
             .subscribe(value => {
                 console.log(value);
-                
+
                 console.log(this.timeSpent);
                 // if (value['onLeave'] === 'false') {
                 //     this.workingTime.enable(TimeInputPage.callStackHandler());
@@ -116,10 +116,17 @@ export class TimeInputPage implements OnInit, OnDestroy {
         this.modalCtrl.dismiss().finally();
     }
 
-    getData() {
+    /**
+     *
+     */
+    getBankHolidays() {
         this.bankHolidayService.getBankHolidays()
             .subscribe(result => {
-                if (result) { console.log(result); }
-        });
+                if (result) {
+                    console.log(result);
+                }
+            }, err => {
+                console.warn(err);
+            });
     }
 }

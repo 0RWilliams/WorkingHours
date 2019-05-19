@@ -13,7 +13,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {TimeInputPage} from './pages/time-input/time-input.page';
+import {TimeInputPage} from '../pages/time-input/time-input.page';
 
 @NgModule({
     declarations: [
