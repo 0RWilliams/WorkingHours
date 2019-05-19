@@ -4,17 +4,23 @@ import {Subject} from 'rxjs';
 import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
 
 import {ModalController} from '@ionic/angular';
+
 import {CallStack} from '../../models/call-stack.interface';
+import {BankHolidaysService} from '../../providers/bank-holidays/bank-holidays.service';
 
 @Component({
     selector: 'app-time-input',
     templateUrl: './time-input.page.html',
     styleUrls: ['./time-input.page.scss'],
+    providers: [BankHolidaysService]
 })
 export class TimeInputPage implements OnInit, OnDestroy {
 
-    constructor(private modalCtrl: ModalController) {
+    constructor(private modalCtrl: ModalController,
+                private bankHolidayService: BankHolidaysService) {
         // empty;
+
+        this.getData();
     }
 
     private destroy$ = new Subject<boolean>();
@@ -108,5 +114,12 @@ export class TimeInputPage implements OnInit, OnDestroy {
      */
     closeModal(): void {
         this.modalCtrl.dismiss().finally();
+    }
+
+    getData() {
+        this.bankHolidayService.getBankHolidays()
+            .subscribe(result => {
+                if (result) { console.log(result); }
+        });
     }
 }
