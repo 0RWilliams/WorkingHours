@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>{{user.name}}'s Calender</ion-title>
+        <ion-title>{{user.name}}'s Calendar</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -24,7 +24,7 @@
                     fill="solid"
                     mwlCalendarToday
                     [(viewDate)]="viewDate">
-                    {{this.getCurrentMonth()}}
+                    Today
                 </ion-button>
 
                 <ion-button
@@ -49,6 +49,7 @@
         (dayClicked)="dayClicked($event.day)"
         [viewDate]="viewDate"
         [excludeDays]="excludeDays"
+        (beforeViewRender)="beforeMonthViewRender($event)"
         [events]="null">
     </mwl-calendar-month-view>
 </ion-content>

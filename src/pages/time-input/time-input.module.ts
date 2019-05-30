@@ -5,7 +5,6 @@ import {IonicModule} from '@ionic/angular';
 
 import {TimeInputPage} from './time-input.page';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -13,7 +12,6 @@ import {HttpClientModule} from '@angular/common/http';
         IonicModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule,
         RouterModule.forChild([
             {
                 path: '',

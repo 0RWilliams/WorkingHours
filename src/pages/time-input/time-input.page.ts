@@ -6,19 +6,15 @@ import {distinctUntilChanged, takeUntil} from 'rxjs/operators';
 import {ModalController} from '@ionic/angular';
 
 import {CallStack} from '../../models/call-stack.interface';
-import {BankHolidaysService} from '../../providers/bank-holidays/bank-holidays.service';
-import {BankHolidays} from '../../models/bank-holidays.interface';
 
 @Component({
     selector: 'app-time-input',
     templateUrl: './time-input.page.html',
-    styleUrls: ['./time-input.page.scss'],
-    providers: [BankHolidaysService]
+    styleUrls: ['./time-input.page.scss']
 })
 export class TimeInputPage implements OnInit, OnDestroy {
 
-    constructor(private modalCtrl: ModalController,
-                private bankHolidayService: BankHolidaysService) {
+    constructor(private modalCtrl: ModalController) {
         // empty;
     }
 
@@ -27,7 +23,6 @@ export class TimeInputPage implements OnInit, OnDestroy {
     workingTime: FormGroup;
     currentDate: string;
     timeSpent: string;
-    bankHolidayData: BankHolidays;
 
     /**
      *
@@ -42,8 +37,6 @@ export class TimeInputPage implements OnInit, OnDestroy {
      * @return {void}
      */
     ngOnInit(): void {
-        this.getBankHolidays();
-
         this.workingTime = new FormGroup({
             onLeave: new FormControl({value: null, disabled: false}, Validators.required),
             task: new FormControl({value: null, disabled: false}, Validators.required),
@@ -116,22 +109,5 @@ export class TimeInputPage implements OnInit, OnDestroy {
      */
     closeModal(): void {
         this.modalCtrl.dismiss().finally();
-    }
-
-    /**
-     *
-     */
-    getBankHolidays() {
-        this.bankHolidayService.getBankHolidays().pipe(takeUntil(this.destroy$))
-            .subscribe(result => {
-                if (result) {
-                    console.log(result);
-                    this.bankHolidayData = result;
-                } else {
-                    this.bankHolidayData = null;
-                }
-            }, error => {
-                console.warn(error);
-            });
     }
 }
